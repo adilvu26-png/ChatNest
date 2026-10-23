@@ -1,0 +1,61 @@
+/* ChatNest v2 additions: bottom nav on phones, filters, favourites, AI chat.
+   Loaded from Sidebar.jsx. Selectors are prefixed with .shell / .side so they win over styles.css. */
+
+/* ---------- tabs: icons only show on phones ---------- */
+.side .tab-ico{display:none}
+.side .tabs button{position:relative}
+
+/* ---------- filters ---------- */
+.side .filters{display:flex;gap:.45rem;padding:.1rem 1rem .7rem;overflow-x:auto;scrollbar-width:none}
+.side .filters::-webkit-scrollbar{display:none}
+.side .fchip{flex:none;display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .85rem;border-radius:99px;font-size:.85rem;font-weight:500;background:var(--bg);color:var(--mute);border:1px solid var(--line)}
+.side .fchip:hover{color:var(--ink)}
+.side .fchip.on{background:color-mix(in srgb,var(--brand) 16%,var(--panel));color:var(--brand);border-color:var(--brand)}
+.side .fcount{min-width:1.15rem;padding:0 .3rem;border-radius:99px;background:var(--brand);color:var(--on-brand);font-size:.7rem;line-height:1.15rem;text-align:center}
+
+/* ---------- chat rows + favourite star ---------- */
+.side .row-wrap{display:flex;align-items:center}
+.side .row-wrap:hover,.side .row-wrap.active{background:var(--bg)}
+.side .row-wrap .row,.side .row-wrap .row:hover,.side .row-wrap .row.active{flex:1;min-width:0;background:none}
+.side .fav-btn{flex:none;margin-right:.6rem;padding:.45rem;border-radius:50%;line-height:0;background:none;color:var(--mute)}
+.side .fav-btn:hover{color:var(--ink)}
+.side .fav-btn.on{color:#f5b301}
+@media(hover:hover){
+  .side .fav-btn:not(.on){opacity:0}
+  .side .row-wrap:hover .fav-btn,.side .fav-btn:focus-visible{opacity:1}
+}
+@media(hover:none){.side .fav-btn:not(.on){opacity:.55}}
+
+/* ---------- AI assistant ---------- */
+.ai-avatar{background:linear-gradient(135deg,#7c4dff,#1e88e5 55%,#26c6da);color:#fff}
+.ai-avatar.big{width:72px;height:72px}
+.ai-tag{flex:none;padding:.05rem .45rem;border-radius:99px;font-size:.7rem;font-weight:600;background:color-mix(in srgb,#7c4dff 18%,transparent);color:#7c4dff}
+:root[data-theme=dark] .ai-tag{color:#b39dff}
+.ai-welcome{margin:auto;display:grid;justify-items:center;gap:.4rem;text-align:center;padding:1rem;max-width:420px}
+.ai-welcome h3{margin:.4rem 0 0}.ai-welcome p{margin:0}
+.ai-sugs{display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem;margin-top:.8rem}
+.ai-sug{padding:.5rem .9rem;border-radius:99px;font-weight:500;font-size:.88rem;background:var(--panel);color:var(--ink);border:1px solid var(--line)}
+.ai-sug:hover{border-color:var(--brand);color:var(--brand)}
+.ai-typing{display:flex;gap:4px;align-items:center;padding:.8rem .9rem}
+.ai-typing i{width:7px;height:7px;border-radius:50%;background:var(--mute);animation:aidot 1.2s infinite ease-in-out}
+.ai-typing i:nth-child(2){animation-delay:.15s}.ai-typing i:nth-child(3){animation-delay:.3s}
+@keyframes aidot{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+.ai-err{align-self:center;display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;justify-content:center;padding:.5rem .9rem;border-radius:12px;background:color-mix(in srgb,var(--err) 12%,var(--panel));color:var(--err);font-size:.9rem;text-align:center}
+.ai-err button{padding:.3rem .8rem;font-size:.85rem}
+.win .composer input{flex:1;min-width:0}
+
+/* ---------- phones: WhatsApp-style bottom navigation ---------- */
+@media(max-width:720px){
+  .shell{height:100vh;height:100dvh}
+  .shell .side .tabs{order:99;flex:none;overflow:visible;border-bottom:0;border-top:1px solid var(--line);background:var(--panel);padding-bottom:env(safe-area-inset-bottom,0px);box-shadow:0 -2px 10px #0000000d}
+  .shell .side .tabs button{flex-direction:column;gap:.1rem;padding:.55rem .25rem .45rem;font-size:.72rem;font-weight:500;box-shadow:none}
+  .shell .side .tabs .on{box-shadow:none}
+  .shell .side .tabs .tab-ico{display:grid;place-items:center;width:52px;height:28px;border-radius:99px;transition:background-color .2s}
+  .shell .side .tabs .on .tab-ico{background:color-mix(in srgb,var(--brand) 18%,transparent)}
+  .shell .side .tabs .tab-badge{position:absolute;top:.3rem;left:calc(50% + 6px);min-width:1.1rem;padding:0 .3rem;font-size:.65rem;line-height:1.1rem;border:2px solid var(--panel);box-sizing:content-box}
+  .shell .side .list{overscroll-behavior:contain}
+  .shell .side header{padding:.7rem .9rem}
+  .toasts{left:.75rem;right:.75rem;top:.6rem}.toast{max-width:none}
+  .win header .grow small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .win .composer{padding:.6rem .7rem calc(.6rem + env(safe-area-inset-bottom,0px))}
+}

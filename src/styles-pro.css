@@ -1,0 +1,109 @@
+/* ChatNest responsive + professional polish. Rules are scoped with #root so they win over older CSS files. */
+:root{--wall:#e6ece6;--wp:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160' fill='none' stroke='%231f6f5c' stroke-opacity='.10' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 24h26a5 5 0 0 1 5 5v12a5 5 0 0 1-5 5H32l-7 6v-6h-5a5 5 0 0 1-5-5V29a5 5 0 0 1 5-5z'/%3E%3Ccircle cx='112' cy='28' r='9'/%3E%3Cpath d='M108 28h8M112 24v8'/%3E%3Cpath d='M98 98l4 8 9 1-6.5 6 1.7 9-8.2-4.3-8.2 4.3 1.7-9L85 107l9-1z'/%3E%3Cpath d='M30 124c-6-5-12-9-12-15a7 7 0 0 1 12-4 7 7 0 0 1 12 4c0 6-6 10-12 15z'/%3E%3Ccircle cx='140' cy='84' r='4'/%3E%3Cpath d='M62 146l7-7 7 7-7 7z'/%3E%3Cpath d='M70 60q6-8 12 0t12 0'/%3E%3C/svg%3E");--shadow-sm:0 1px 2px rgb(16 24 20 / .08);--shadow-md:0 8px 28px rgb(16 24 20 / .16)}
+:root[data-theme=dark]{--wall:#0b1411;--wp:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160' fill='none' stroke='%234fb89c' stroke-opacity='.08' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 24h26a5 5 0 0 1 5 5v12a5 5 0 0 1-5 5H32l-7 6v-6h-5a5 5 0 0 1-5-5V29a5 5 0 0 1 5-5z'/%3E%3Ccircle cx='112' cy='28' r='9'/%3E%3Cpath d='M108 28h8M112 24v8'/%3E%3Cpath d='M98 98l4 8 9 1-6.5 6 1.7 9-8.2-4.3-8.2 4.3 1.7-9L85 107l9-1z'/%3E%3Cpath d='M30 124c-6-5-12-9-12-15a7 7 0 0 1 12-4 7 7 0 0 1 12 4c0 6-6 10-12 15z'/%3E%3Ccircle cx='140' cy='84' r='4'/%3E%3Cpath d='M62 146l7-7 7 7-7 7z'/%3E%3Cpath d='M70 60q6-8 12 0t12 0'/%3E%3C/svg%3E");--shadow-sm:0 1px 2px rgb(0 0 0 / .45);--shadow-md:0 10px 30px rgb(0 0 0 / .6)}
+html{font-size:clamp(14.5px,13.6px + .28vw,17px);-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{line-height:1.45;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+*{scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+#root .icon-btn{min-width:40px;min-height:40px}
+#root .card{box-shadow:var(--shadow-md)}
+@media(min-width:721px){#root .shell{grid-template-columns:clamp(350px,34vw,430px) minmax(0,1fr)}
+#root .empty-pro{display:flex}}
+@media(min-width:1900px){#root .shell{max-width:1840px;margin-inline:auto;border-inline:1px solid var(--line)}}
+#root .side header,#root .win header{min-height:62px;padding:.5rem .9rem;gap:.6rem;background:var(--panel)}
+#root .win header{position:relative;z-index:2;box-shadow:var(--shadow-sm)}
+#root .win header .grow,#root .side header .grow{min-width:0}
+#root .hdr-profile{display:flex;align-items:center;gap:.75rem;flex:1;min-width:0}
+#root .hdr-avatar{flex:none;padding:0;border-radius:50%;background:none;line-height:0;transition:opacity .15s}
+#root .hdr-avatar:hover{opacity:.88}
+#root .hdr-name{display:block;align-self:flex-start;min-width:0;max-width:100%;overflow:hidden;padding:0;border-radius:6px;background:none;color:inherit;font-weight:inherit;text-align:left}
+#root .hdr-name:hover b{text-decoration:underline}
+#root .hdr-profile .grow{display:flex;flex-direction:column;min-width:0}
+#root .hdr-profile b{font-size:1.02rem;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#root .hdr-profile small{display:block;font-size:.8rem;color:var(--mute);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#root .back-btn{display:none;flex:none;width:40px;height:40px;margin-left:-.4rem;padding:0;place-items:center;border-radius:50%;background:none;color:var(--ink);transition:background-color .15s}
+#root .back-btn:hover,#root .back-btn:active{background:var(--bg)}
+#root .back-btn:focus-visible{outline:2px solid var(--brand);outline-offset:1px}
+#root .searchbar{display:flex;align-items:center;gap:.5rem;padding:.5rem .8rem;background:var(--panel);border-bottom:1px solid var(--line)}
+#root .searchbar input{flex:1;min-width:0;padding:.55rem 1rem;border-radius:999px;border-color:transparent;background:var(--bg)}
+#root .searchbar .found{flex:none;font-size:.8rem;white-space:nowrap}
+#root .side{background:var(--panel)}
+#root .tabs button{font-size:.88rem;font-weight:600}
+#root .search-box input{border-radius:999px;border-color:transparent;background:var(--bg);padding:.6rem 1rem}
+#root .search-box input:focus{background:var(--panel)}
+#root .sect{padding:.9rem 1rem .35rem;font-size:.74rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--brand)}
+#root .mini-btn{flex:none;margin-right:1rem;padding:.4rem .95rem;border-radius:999px;font-size:.82rem}
+#root .added{flex:none;margin-right:1rem;font-size:.8rem;color:var(--mute)}
+#root .row-wrap{border-bottom:1px solid color-mix(in srgb,var(--line) 55%,transparent)}
+#root .row-wrap:hover{background:var(--bg)}
+#root .row-wrap.active{background:color-mix(in srgb,var(--brand) 11%,var(--panel))}
+#root .row{padding:.7rem .3rem .7rem 1rem;gap:.85rem}
+#root .row .avatar{width:48px;height:48px;font-size:1.15rem}
+#root .row b{display:flex;align-items:center;gap:.35rem;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#root .row .grow{min-width:0}
+#root .row .grow small{display:block;font-size:.86rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#root .row.unread .grow small{color:var(--ink);font-weight:500}
+#root .meta-col{flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:.3rem;min-width:2.9rem}
+#root .when{font-size:.72rem;color:var(--mute);white-space:nowrap}
+#root .row.unread .when{color:var(--brand);font-weight:600}
+#root .badge{min-width:1.35rem;padding:.05rem .42rem;text-align:center;font-size:.72rem;font-weight:600}
+#root .fav-mark{display:inline-flex;color:#f5b301}
+#root .win{background:var(--wall)}
+#root .msgs{padding:1rem clamp(.7rem,5vw,4rem);gap:.5rem;background-color:var(--wall);background-image:var(--wp);background-size:200px}
+#root .msg{width:fit-content;min-width:0;align-self:flex-start;max-width:min(78%,640px);padding:.45rem .7rem .3rem;border-radius:12px;box-shadow:var(--shadow-sm)}
+#root .msg.theirs{border-top-left-radius:4px}
+#root .msg.mine{align-self:flex-end;border-top-right-radius:4px}
+#root .msg p{font-size:.95rem;line-height:1.42;overflow-wrap:anywhere}
+#root .msg .sender{font-size:.8rem;font-weight:600}
+#root .quote{margin-bottom:.3rem;padding:.3rem .55rem;border-radius:8px;font-size:.85rem;background:color-mix(in srgb,var(--ink) 7%,transparent)}
+#root .meta{display:flex;justify-content:flex-end;align-items:center;gap:.2rem;margin-top:.1rem;font-size:.68rem;color:var(--mute)}
+#root .tick{flex:none;width:17px;height:11px;margin-left:.1rem;color:var(--mute)}
+#root .tick.read{color:#34b7f1}
+#root .banner{padding:.6rem 1rem;font-size:.88rem}
+#root .emoji{max-height:30vh;overflow:auto;padding:.5rem .8rem}
+#root .composer{gap:.35rem;padding:.55rem .7rem;background:var(--panel);border-top:1px solid var(--line)}
+#root .composer input{flex:1;min-width:0;padding:.72rem 1.05rem;border-radius:999px;border-color:transparent;background:var(--bg)}
+#root .composer input:focus{background:var(--panel)}
+#root .send-round{width:44px;height:44px;flex:none}
+#root .empty-pro{position:relative;flex-direction:column;align-items:center;justify-content:center;gap:.6rem;padding:2rem;text-align:center;color:var(--ink);background-color:var(--wall);background-image:radial-gradient(circle at 50% 42%,var(--panel),var(--wall) 75%);border-bottom:6px solid var(--brand)}
+#root .empty-art{width:clamp(200px,28vw,340px);height:auto;color:var(--ink)}
+#root .empty-pro h2{margin:.8rem 0 0;font-size:clamp(1.4rem,1rem + 1.3vw,2rem);font-weight:600}
+#root .empty-pro p{max-width:46ch;margin:0;color:var(--mute);font-size:clamp(.9rem,.85rem + .2vw,1.05rem)}
+#root .ci-btn{width:100%;margin-top:1rem}
+#root .ci-btn.danger{background:color-mix(in srgb,var(--err) 12%,var(--panel));color:var(--err);border:1px solid color-mix(in srgb,var(--err) 40%,transparent)}
+#root .ci-confirm{width:100%;margin-top:1rem;text-align:left}
+#root .ci-confirm p{margin:0 0 .6rem;color:var(--mute);font-size:.92rem}
+#root .ci-danger{background:var(--err);color:var(--bg)}
+@media(max-width:720px){#root .shell{grid-template-columns:minmax(0,1fr)}
+#root .side,#root .win{min-width:0;max-width:100%}
+#root .back-btn{display:grid}
+#root .msg{max-width:88%}
+#root .msgs{padding:.8rem .6rem}
+#root .side header,#root .win header{padding-left:.7rem;padding-right:.7rem}
+#root .shell .side .tabs button{font-size:clamp(.6rem,2.7vw,.74rem)}
+#root .row .avatar{width:46px;height:46px}}
+@media(max-width:360px){#root .side header .me b,#root .side header .me small{max-width:7.5rem}
+#root .row{gap:.7rem;padding-left:.8rem}}
+@media(max-height:480px) and (orientation:landscape){#root .side header,#root .win header{min-height:50px}
+#root .composer{padding:.35rem .6rem}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+#root .ai-row{padding-right:1rem}
+#root .side,#root .win{min-width:0}
+#root .hdr-name b{display:block}
+#root .win header .icon-btn,#root .win header .cm-btn{flex:none}
+/* messages: each bubble is only as wide as its content, with clear spacing between bubbles */
+#root .msg.mine + .msg.mine,#root .msg.theirs + .msg.theirs{margin-top:-.2rem}
+#root .msg.mine + .msg.theirs,#root .msg.theirs + .msg.mine{margin-top:.3rem}
+#root .msg img,#root .msg video{display:block;max-width:100%;height:auto;border-radius:10px}
+#root .msg .actions{z-index:7;box-shadow:var(--shadow-md)}
+#root .reactions{margin-bottom:.15rem}
+
+/* tabs: icon above label so all 5 fit at every width from 721px up */
+@media(min-width:721px){
+#root .side .tabs button{position:relative;flex-direction:column;gap:.15rem;min-width:0;padding:.5rem .15rem .45rem;font-size:.74rem;font-weight:600}
+#root .side .tabs .tab-ico{display:grid;place-items:center;width:46px;height:26px;border-radius:99px;transition:background-color .2s}
+#root .side .tabs .on .tab-ico{background:color-mix(in srgb,var(--brand) 16%,transparent)}
+#root .side .tabs .tab-badge{position:absolute;top:.2rem;left:calc(50% + 6px);min-width:1.1rem;padding:0 .3rem;font-size:.65rem;line-height:1.1rem;border:2px solid var(--panel);box-sizing:content-box}
+#root .side .filters{flex-wrap:wrap;overflow:visible;gap:.3rem;padding-left:.75rem;padding-right:.75rem}
+#root .side .fchip{padding:.28rem .55rem;font-size:.76rem}
+#root .side .fcount{min-width:1rem;font-size:.66rem;line-height:1rem}
+}

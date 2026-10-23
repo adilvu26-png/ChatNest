@@ -1,0 +1,47 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{db}/documents {
+    function me() { return request.auth.uid; }
+    match /users/{uid} {
+      allow read: if request.auth != null;
+      allow write: if me() == uid;
+      match /activity/{id} { allow read, create: if me() == uid; }
+    }
+    match /chats/{chatId} {
+      allow create: if request.auth != null && me() in request.resource.data.members
+        && (!request.resource.data.get('isGroup', false) || me() in request.resource.data.admins);
+      allow read: if me() in resource.data.members;
+      allow update: if me() in resource.data.members && (
+        !resource.data.get('isGroup', false)
+        || me() in resource.data.admins
+        || request.resource.data.diff(resource.data).affectedKeys().hasOnly(['lastMessage','lastAt','unread','typing'])
+        || (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['members','admins']) && !(me() in request.resource.data.members)));
+      match /messages/{mid} {
+        function isMember() { return me() in get(/databases/$(db)/documents/chats/$(chatId)).data.members; }
+        // A member may only add, change or remove their OWN entry in `reactions`.
+        function onlyMyReaction() {
+          return request.resource.data.reactions.diff(resource.data.get('reactions', {})).affectedKeys().hasOnly([me()]);
+        }
+        allow read: if isMember();
+        allow create: if isMember() && request.resource.data.from == me();
+        allow update: if isMember() && (resource.data.from == me()
+          || request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status','deletedFor'])
+          || (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['reactions']) && onlyMyReaction()));
+      }
+    }
+    // One document per claimed username -> owner uid (keeps usernames unique)
+    match /usernames/{name} {
+      allow read: if request.auth != null;
+      allow create: if me() == request.resource.data.uid
+        && request.resource.data.keys().hasOnly(['uid'])
+        && name.matches('^[a-z][a-z0-9._]{2,19}$');
+      allow delete: if me() == resource.data.uid;
+    }
+    match /statuses/{id} {
+      allow read: if me() == resource.data.uid || me() in resource.data.audience;
+      allow create: if me() == request.resource.data.uid;
+      allow delete: if me() == resource.data.uid;
+      allow update: if me() in resource.data.audience && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['viewers']);
+    }
+  }
+}
